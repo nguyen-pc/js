@@ -269,3 +269,120 @@ var showCart = function () {
     tdD.innerHTML = `Tổng cộng (D) = A+B+C = <span>${finalTotal} VNĐ</span>`;
   }
 };
+
+/////////////////////////////////
+
+function checkvalidate() {
+  var fsm = document.getElementById("fsm");
+  var sanpham = document.getElementById("sanpham");
+  var name = document.getElementById("name");
+  var soluong = document.getElementById("soluong");
+  var test = document.getElementById("test");
+
+  if (name.value.length == 0) {
+    alert("Ban chua nhap");
+    console.log("......");
+    return false;
+  }
+  if (soluong.value.length == 0) {
+    alert("Ban chua nhap");
+    console.log("......");
+    return false;
+  }
+  if (test.value.length == 0) {
+    alert("Ban chua nhap");
+    console.log("......");
+    return false;
+  }
+
+  alert("Form da gui");
+  fsm.submit();
+}
+
+function resetInput() {
+  var fsm = document.getElementById("fsm");
+  var sanpham = document.getElementById("sanpham");
+  var name = document.getElementById("name");
+  var soluong = document.getElementById("soluong");
+  var test = document.getElementById("test");
+
+  if (name.value.length > 0) {
+    name.value = "";
+    alert(",,,,");
+  }
+  if (soluong.value.length > 0) {
+    soluong.value = "";
+  }
+  if (test.value.length > 0) {
+    test.value = "";
+  }
+}
+
+TenDangnhap = [
+  {
+    Hoten: "Nguyen",
+    email: "aaa",
+    password: "1234",
+  },
+  {
+    Hoten: "Bao",
+    emial: "bbb",
+    password: "1234",
+  },
+];
+
+function checkLogin() {
+  var user = document.getElementById("user");
+  var password = document.getElementById("password");
+  var check = document.getElementById("check");
+  var valueUser = user.value;
+  var valuePassword = password.value;
+  console.log(valueUser);
+  console.log(TenDangnhap[0].Hoten);
+  var ischecked = check.checked;
+
+  if (
+    valueUser.length < 1 &&
+    (valueUser !== TenDangnhap[0].Hoten || valueUser !== TenDangnhap[1].Hoten)
+  ) {
+    alert("Ban chua nhap ho ten hoac nhap ko dung");
+    return false;
+  }
+  if (password.value.length < 1) {
+    if (valueUser !== TenDangnhap[0].Hoten) {
+      if (valuePassword !== TenDangnhap[0].password) {
+        alert("Ban chua nhap mat khau hoac mat khau ko dung");
+        return false;
+      }
+    }
+    if (valueUser !== TenDangnhap[1].Hoten) {
+      if (valuePassword !== TenDangnhap[1].password) {
+        alert("Ban chua nhap mat khau hoac mat khau ko dung");
+        return false;
+      }
+    }
+  }
+
+  if (ischecked == true) {
+    localStorage.setItem(valueUser, valueUser);
+  }
+  return true;
+}
+
+function changeText() {
+  var user = document.getElementById("user");
+  var change = document.getElementById("content");
+  var valueUser = user.value;
+  if (checkLogin()) {
+    for (let i = 0; i < localStorage.length; i++) {
+      if (valueUser === localStorage.key(i)) {
+        change.innerHTML =
+          "Chao" +
+          " " +
+          localStorage.getItem(localStorage.key(0)) +
+          "  | Thoat";
+        return;
+      }
+    }
+  }
+}
